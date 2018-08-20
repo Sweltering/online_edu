@@ -18,10 +18,14 @@ from django.urls import path, include, re_path
 import xadmin
 from django.views.generic import TemplateView
 from django.conf.urls import url
+from django.views.static import serve
 
 from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetView, ModifyPwdView
+from organization.views import OrgView
+from online_edu.settings import MEDIA_ROOT
 
 urlpatterns = [
+    # 登录注册相关URL
     path('xadmin/', xadmin.site.urls),
     path("", TemplateView.as_view(template_name="index.html"), name="index"),
     path("login/", LoginView.as_view(), name="login"),
@@ -30,5 +34,9 @@ urlpatterns = [
     re_path('active/(?P<active_code>.*)/', ActiveUserView.as_view(), name='user_active'),
     path('forget/', ForgetPwdView.as_view(), name='forget_pwd'),
     url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(), name="reset_pwd"),
-    url(r'^modify_pwd/$', ModifyPwdView.as_view(), name="modify_pwd")
+    url(r'^modify_pwd/$', ModifyPwdView.as_view(), name="modify_pwd"),
+
+    # 课程机构相关URL
+    url(r"^org_list/$", OrgView.as_view(), name="org_list"),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT})  # 配置上传文件的访问处理函数
 ]

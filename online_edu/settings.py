@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "xadmin",
     "crispy_forms",
     "captcha",
+    'pure_pagination',
 ]
 # 重载AUTH_USER_MODEL
 AUTH_USER_MODEL = "users.UserProfile"
@@ -68,8 +69,7 @@ ROOT_URLCONF = 'online_edu.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',  # MEDIA_URL要能访问必须配置这个全局变量
             ],
         },
     },
@@ -144,3 +145,8 @@ EMAIL_HOST_USER = "779060694@qq.com"  # 邮箱地址
 EMAIL_HOST_PASSWORD = "vnwoviclnylmbahf"  # 密码
 EMAIL_USE_TLS = True
 EMAIL_FROM = "779060694@qq.com"  # 邮箱地址
+
+
+# 上传图片的存放路径
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
