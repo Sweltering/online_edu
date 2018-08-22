@@ -35,12 +35,17 @@ class CourseOrg(models.Model):
     address = models.CharField(max_length=150, verbose_name="机构地址")
     city = models.ForeignKey(CityDict, on_delete=models.CASCADE, verbose_name=u"所在城市")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="机构添加时间")
+    students = models.IntegerField(default=0, verbose_name='学习人数')
+    course_nums = models.IntegerField(default=0, verbose_name='课程数')
 
     class Meta:
         verbose_name = '课程机构'
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
+        return self.name
+
+    def __str__(self):
         return self.name
 
 
